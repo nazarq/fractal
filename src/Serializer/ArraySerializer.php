@@ -89,30 +89,18 @@ class ArraySerializer extends SerializerAbstract
      *
      * @return array
      */
-    public function paginator(PaginatorInterface $paginator)
+      public function paginator(PaginatorInterface $paginator)
     {
         $currentPage = (int) $paginator->getCurrentPage();
-        $lastPage = (int) $paginator->getLastPage();
 
         $pagination = [
-            'total' => (int) $paginator->getTotal(),
-            'count' => (int) $paginator->getCount(),
-            'per_page' => (int) $paginator->getPerPage(),
-            'current_page' => $currentPage,
-            'total_pages' => $lastPage,
+            'recordsTotal' => (int) $paginator->getTotal(),
+            'recordsFiltered' => (int)  $paginator->getTotal(),
+            'draw' => $_GET['draw'],
         ];
 
-        $pagination['links'] = [];
 
-        if ($currentPage > 1) {
-            $pagination['links']['previous'] = $paginator->getUrl($currentPage - 1);
-        }
-
-        if ($currentPage < $lastPage) {
-            $pagination['links']['next'] = $paginator->getUrl($currentPage + 1);
-        }
-
-        return ['pagination' => $pagination];
+        return $pagination;
     }
 
     /**
