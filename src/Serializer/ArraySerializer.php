@@ -96,7 +96,7 @@ class ArraySerializer extends SerializerAbstract
         $pagination = [
             'recordsTotal' => (int) $paginator->getTotal(),
             'recordsFiltered' => (int)  $paginator->getTotal(),
-            'draw' => $_GET['draw'],
+            'draw' => isset($_GET['draw']) ? $_GET['draw'] : null,
         ];
 
 
